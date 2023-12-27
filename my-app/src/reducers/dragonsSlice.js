@@ -1,4 +1,3 @@
-// src/reducers/dragonsSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // SpaceX API endpoint for dragons
@@ -24,7 +23,20 @@ const dragonsSlice = createSlice({
     error: null,
   },
   reducers: {
-    // Other synchronous actions can be defined here if needed
+    // Add a new reducer to handle booking a dragon
+    dragonBooked: (state, action) => {
+      const { dragonId } = action.payload;
+      state.dragons = state.dragons.map((dragon) =>
+        dragon.id === dragonId ? { ...dragon, reserved: true } : dragon
+      );
+    },
+    // Add a new reducer to handle canceling a reservation
+    reservationCanceled: (state, action) => {
+      const { dragonId } = action.payload;
+      state.dragons = state.dragons.map((dragon) =>
+        dragon.id === dragonId ? { ...dragon, reserved: false } : dragon
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -43,6 +55,10 @@ const dragonsSlice = createSlice({
 });
 
 // Export the asynchronous action creator for use in components
-export { fetchDragons };
+// Remove this line as fetchDragons is already exported in the line below
+// export { fetchDragons };
+
+// Export the booking actions
+export const { dragonBooked, reservationCanceled } = dragonsSlice.actions;
 
 export default dragonsSlice.reducer;

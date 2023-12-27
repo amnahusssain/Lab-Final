@@ -1,6 +1,6 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navigation from './components/Navigation';
 import Dragons from './components/Dragons';
 import Missions from './components/Missions';
 import MyProfile from './components/MyProfile';
@@ -8,11 +8,22 @@ import MyProfile from './components/MyProfile';
 const App = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/dragons" component={Dragons} />
-        <Route path="/missions" component={Missions} />
-        <Route path="/myprofile" component={MyProfile} />
-      </Switch>
+      <div>
+        <Navigation />
+
+        <Switch>
+          <Route path="/dragons">
+            <Dragons />
+          </Route>
+          <Route path="/missions">
+            <Missions />
+          </Route>
+          <Route path="/myprofile">
+            <MyProfile />
+          </Route>
+          {/* Add more routes as needed */}
+        </Switch>
+      </div>
     </Router>
   );
 };
